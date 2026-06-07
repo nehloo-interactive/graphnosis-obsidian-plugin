@@ -20,7 +20,15 @@ export class VaultSync {
     this.timer = window.setTimeout(() => void this.flush(), 5_000);
   }
 
-  /** Queue all .md files modified after `since` (Unix ms). Runs in the background. */
+  /**
+   * Queue all .md files modified after `since` (Unix ms). Runs in the background.
+   *
+   * NOTE ON VAULT ENUMERATION (getMarkdownFiles): this is used only by the optional
+   * Vault sync feature, which is off by default. When the user explicitly enables it,
+   * the plugin lists markdown files to find ones modified since the last sync (catch-up).
+   * No file contents are read or transmitted unless sync is enabled, and the config dir
+   * is excluded. There's no way to offer catch-up sync without enumerating notes.
+   */
   async catchUp(since: number): Promise<void> {
     const files = this.vault.getMarkdownFiles();
     for (const file of files) {

@@ -84,11 +84,7 @@ export class RecallModal extends Modal {
     if (view?.editor) {
       view.editor.replaceSelection(text);
     } else {
-      navigator.clipboard.writeText(text).then(() => {
-        new Notice('Graphnosis: copied to clipboard (no active editor).');
-      }).catch(() => {
-        new Notice(`Graphnosis: ${text.slice(0, 80)}…`);
-      });
+      new Notice('Graphnosis: open a note in edit mode to insert the result.');
     }
   }
 }

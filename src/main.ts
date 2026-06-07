@@ -16,7 +16,7 @@ export class GraphnosisPlugin extends Plugin {
 
     this.addCommand({
       id: 'recall',
-      name: 'Search Graphnosis memory…',
+      name: 'Search memory…',
       callback: () => {
         if (!this.client) {
           new Notice('Graphnosis: configure bearer token first (Settings → Graphnosis).');
@@ -28,7 +28,7 @@ export class GraphnosisPlugin extends Plugin {
 
     this.addCommand({
       id: 'remember',
-      name: 'Save current note to Graphnosis memory',
+      name: 'Save current note to memory',
       editorCallback: (editor) => {
         const label = this.app.workspace.getActiveFile()?.basename;
         void this.rememberNote(editor.getValue(), label);

@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/github/v/release/nehloo-interactive/graphnosis-obsidian-plugin)](https://github.com/nehloo-interactive/graphnosis-obsidian-plugin/releases/latest)
+[![Release](https://img.shields.io/github/v/release/nehloo/graphnosis-obsidian-plugin)](https://github.com/nehloo/graphnosis-obsidian-plugin/releases/latest)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Graphnosis App](https://img.shields.io/badge/Graphnosis-App-4f46e5)](https://graphnosis.ai)
 [![SDK](https://img.shields.io/npm/v/%40nehloo%2Fgraphnosis?label=%40nehloo%2Fgraphnosis)](https://www.npmjs.com/package/@nehloo/graphnosis)
@@ -16,7 +16,7 @@ Indexed, local, encrypted job memory for your Obsidian vault, powered by [Graphn
 - **Catch-up sync** — on every launch, the plugin picks up notes edited outside Obsidian (Terminal, Cursor, cloud sync) and pushes them without any action from you
 - **Engram routing** — direct vault notes into a specific memory graph (engram) to keep topics cleanly separated
 - **Token-budget control** — tune recall depth per query from 100 to 8,000 tokens in Settings
-- **Insert at cursor** — recall results drop straight into your note; falls back to clipboard if no editor is open
+- **Insert at cursor** — recall results drop straight into your note at the cursor
 - **Status bar** — live cortex vitality score so you always know the bridge is up
 - **Local-only** — talks to the Graphnosis sidecar on `localhost`; AES-256-GCM encryption at rest; nothing leaves your machine
 
@@ -34,7 +34,7 @@ Indexed, local, encrypted job memory for your Obsidian vault, powered by [Graphn
 ### Via BRAT (pre-release / beta)
 
 1. Install the [BRAT plugin](https://github.com/TfTHacker/obsidian42-brat) from Obsidian's community plugin list.
-2. Open BRAT settings → **Add Beta Plugin** → paste `nehloo-interactive/graphnosis-obsidian-plugin`.
+2. Open BRAT settings → **Add Beta Plugin** → paste `nehloo/graphnosis-obsidian-plugin`.
 3. Enable **Graphnosis** in Settings → Community plugins.
 
 ### Via Obsidian Marketplace (once listed)
@@ -71,8 +71,8 @@ Use **Test connection** to confirm the bridge is reachable after pasting the tok
 
 | Command | What it does |
 |---|---|
-| `Search Graphnosis memory…` | Opens the recall modal — type a query, click a result to insert it |
-| `Save current note to Graphnosis memory` | Pushes the full current note to your cortex |
+| `Search memory…` | Opens the recall modal — type a query, click a result to insert it |
+| `Save current note to memory` | Pushes the full current note to your cortex |
 
 ---
 
