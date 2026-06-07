@@ -1,6 +1,6 @@
 [![Release](https://img.shields.io/github/v/release/nehloo/graphnosis-obsidian-plugin)](https://github.com/nehloo/graphnosis-obsidian-plugin/releases/latest)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Graphnosis App](https://img.shields.io/badge/Graphnosis-App-4f46e5)](https://graphnosis.ai)
+[![Graphnosis App](https://img.shields.io/badge/Graphnosis-App-4f46e5)](https://graphnosis.com)
 [![SDK](https://img.shields.io/npm/v/%40nehloo%2Fgraphnosis?label=%40nehloo%2Fgraphnosis)](https://www.npmjs.com/package/@nehloo/graphnosis)
 [![Docs](https://img.shields.io/badge/Docs-docs.graphnosis.com-4f46e5)](https://docs.graphnosis.com)
 
