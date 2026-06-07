@@ -39,7 +39,7 @@ export class GraphnosisPlugin extends Plugin {
 
     this.statusBarEl = this.addStatusBarItem();
     this.statusBarEl.setText('G');
-    this.statusBarEl.title = 'Graphnosis (checking…)';
+    this.statusBarEl.setAttribute('aria-label', 'Graphnosis (checking…)');
     void this.refreshStatusBar();
 
     this.registerInterval(window.setInterval(() => void this.refreshStatusBar(), 60_000));
@@ -75,18 +75,18 @@ export class GraphnosisPlugin extends Plugin {
   async refreshStatusBar(): Promise<void> {
     if (!this.client) {
       this.statusBarEl.setText('G');
-      this.statusBarEl.title = 'Graphnosis — not connected';
+      this.statusBarEl.setAttribute('aria-label', 'Graphnosis — not connected');
       this.statusBarEl.removeClass('graphnosis-healthy', 'graphnosis-degraded');
       return;
     }
     const score = await this.client.vitality();
     if (score === null) {
       this.statusBarEl.setText('G');
-      this.statusBarEl.title = 'Graphnosis — bridge unreachable';
+      this.statusBarEl.setAttribute('aria-label', 'Graphnosis — bridge unreachable');
       this.statusBarEl.removeClass('graphnosis-healthy', 'graphnosis-degraded');
     } else {
       this.statusBarEl.setText('G');
-      this.statusBarEl.title = `Graphnosis — cortex vitality ${score}/100`;
+      this.statusBarEl.setAttribute('aria-label', `Graphnosis — cortex vitality ${score}/100`);
       this.statusBarEl.toggleClass('graphnosis-healthy', score >= 60);
       this.statusBarEl.toggleClass('graphnosis-degraded', score < 60);
     }

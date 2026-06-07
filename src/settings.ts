@@ -28,8 +28,6 @@ export class GraphnosisSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    containerEl.createEl('h2', { text: 'Graphnosis' });
-
     new Setting(containerEl)
       .setName('HTTP bridge URL')
       .setDesc('URL of the Graphnosis local MCP bridge. Matches Graphnosis → Settings → VS Code.')
@@ -71,10 +69,10 @@ export class GraphnosisSettingTab extends PluginSettingTab {
             : 'Graphnosis: bridge not reachable — is the Graphnosis app running?');
         }));
 
-    containerEl.createEl('h3', { text: 'Vault sync' });
+    new Setting(containerEl).setName('Vault sync').setHeading();
 
     new Setting(containerEl)
-      .setName('Enable vault sync')
+      .setName('Vault sync')
       .setDesc('Push modified notes to Graphnosis memory on save. On startup, catches up any notes modified while Obsidian was closed.')
       .addToggle(toggle => toggle
         .setValue(this.plugin.settings.vaultSync)
@@ -97,7 +95,7 @@ export class GraphnosisSettingTab extends PluginSettingTab {
           }));
     }
 
-    containerEl.createEl('h3', { text: 'Recall' });
+    new Setting(containerEl).setName('Recall').setHeading();
 
     new Setting(containerEl)
       .setName('Max recall tokens')

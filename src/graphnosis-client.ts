@@ -1,3 +1,5 @@
+import { requestUrl, type RequestUrlResponse } from 'obsidian';
+
 /** Thin HTTP client for the Graphnosis local MCP bridge (mcp-http-server.ts). */
 export class GraphnosisClient {
   private sessionId: string | undefined;
@@ -63,22 +65,17 @@ export class GraphnosisClient {
   /** Returns true if the bridge is reachable with the current token. */
   async ping(): Promise<boolean> {
     try {
-      const res = await fetch(this.baseUrl, {
-        method: 'POST',
-        headers: this.headers(),
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          id: this.nextId(),
-          method: 'initialize',
-          params: {
-            protocolVersion: '2024-11-05',
-            capabilities: {},
-            clientInfo: { name: 'obsidian-graphnosis', version: '0.1.0' },
-          },
-        }),
-        signal: AbortSignal.timeout(3000),
-      });
-      return res.ok;
+      const res = await this.post({
+        jsonrpc: '2.0',
+        id: this.nextId(),
+        method: 'initialize',
+        params: {
+          protocolVersion: '2024-11-05',
+          capabilities: {},
+          clientInfo: { name: 'obsidian-graphnosis', version: '0.1.0' },
+        },
+      }, 3000);
+      return res.status >= 200 && res.status < 300;
     } catch {
       return false;
     }
@@ -99,28 +96,23 @@ export class GraphnosisClient {
   }
 
   private async callTool(name: string, args: Record<string, unknown>): Promise<unknown> {
-    const res = await fetch(this.baseUrl, {
-      method: 'POST',
-      headers: this.headers(),
-      body: JSON.stringify({
-        jsonrpc: '2.0',
-        id: this.nextId(),
-        method: 'tools/call',
-        params: { name, arguments: args },
-      }),
-      signal: AbortSignal.timeout(15_000),
-    });
+    const res = await this.post({
+      jsonrpc: '2.0',
+      id: this.nextId(),
+      method: 'tools/call',
+      params: { name, arguments: args },
+    }, 15_000);
 
-    if (!res.ok) {
+    if (res.status < 200 || res.status >= 300) {
       throw new Error(`Graphnosis bridge returned HTTP ${res.status}`);
     }
 
     if (!this.sessionId) {
-      const sid = res.headers.get('Mcp-Session-Id');
+      const sid = res.headers['mcp-session-id'] ?? res.headers['Mcp-Session-Id'];
       if (sid) this.sessionId = sid;
     }
 
-    const json = await res.json() as {
+    const json = res.json as {
       result?: unknown;
       error?: { message?: string; code?: number };
     };
@@ -129,5 +121,34 @@ export class GraphnosisClient {
       throw new Error(`Graphnosis MCP error: ${json.error.message ?? JSON.stringify(json.error)}`);
     }
     return json.result;
+  }
+
+  /**
+   * POST a JSON-RPC body via Obsidian's requestUrl (avoids CORS; works cross-platform).
+   * requestUrl has no native timeout, so we race it against a timer; `throw: false`
+   * lets us inspect non-2xx statuses instead of having requestUrl throw.
+   */
+  private async post(body: unknown, timeoutMs: number): Promise<RequestUrlResponse> {
+    let timer: number | undefined;
+    const timeout = new Promise<never>((_, reject) => {
+      timer = window.setTimeout(
+        () => reject(new Error('Graphnosis bridge timed out')),
+        timeoutMs,
+      );
+    });
+    try {
+      return await Promise.race([
+        requestUrl({
+          url: this.baseUrl,
+          method: 'POST',
+          headers: this.headers(),
+          body: JSON.stringify(body),
+          throw: false,
+        }),
+        timeout,
+      ]);
+    } finally {
+      window.clearTimeout(timer);
+    }
   }
 }

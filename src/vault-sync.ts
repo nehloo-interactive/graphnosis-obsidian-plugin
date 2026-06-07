@@ -14,7 +14,7 @@ export class VaultSync {
   ) {}
 
   enqueue(file: TFile): void {
-    if (file.path.startsWith('.obsidian/') || !file.path.endsWith('.md')) return;
+    if (file.path.startsWith(`${this.vault.configDir}/`) || !file.path.endsWith('.md')) return;
     this.queue.set(file.path, file);
     window.clearTimeout(this.timer);
     this.timer = window.setTimeout(() => void this.flush(), 5_000);
@@ -24,7 +24,7 @@ export class VaultSync {
   async catchUp(since: number): Promise<void> {
     const files = this.vault.getMarkdownFiles();
     for (const file of files) {
-      if (file.path.startsWith('.obsidian/')) continue;
+      if (file.path.startsWith(`${this.vault.configDir}/`)) continue;
       if (file.stat.mtime > since) {
         this.queue.set(file.path, file);
       }
@@ -47,7 +47,7 @@ export class VaultSync {
 
       for (const file of chunk) {
         try {
-          const content = await this.vault.read(file);
+          const content = await this.vault.cachedRead(file);
           if (!content.trim()) continue;
           items.push({
             text: `# ${file.basename}\n\n${content}`,
