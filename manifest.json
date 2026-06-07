@@ -1,0 +1,10 @@
+{
+  "id": "graphnosis",
+  "name": "Graphnosis",
+  "version": "0.1.0",
+  "minAppVersion": "1.4.0",
+  "description": "Indexed, local, encrypted job memory for your Obsidian vault, powered by Graphnosis.",
+  "author": "Nehloo Interactive",
+  "authorUrl": "https://graphnosis.com",
+  "isDesktopOnly": false
+}
