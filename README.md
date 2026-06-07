@@ -51,11 +51,19 @@ Open Settings → Graphnosis:
 |---|---|---|
 | HTTP bridge URL | `http://127.0.0.1:3457/mcp` | URL of the local MCP bridge (rarely needs changing) |
 | Bearer token | — | Paste from Graphnosis → Settings → VS Code tab |
+| Target engram | `personal` | Engram that **Save current note** and vault sync write into |
 | Enable vault sync | off | Push modified notes to memory on save |
-| Target engram | `personal` | Which Graphnosis engram receives vault notes |
 | Max recall tokens | 2000 | Token budget per recall query (100–8000) |
 
 Use **Test connection** to confirm the bridge is reachable after pasting the token.
+
+> [!IMPORTANT]
+> **Enabling vault sync imports your whole vault.** The first time you turn it on,
+> catch-up sync treats every existing `.md` file as unsynced and pushes all of them
+> to the **Target engram** in one pass (then only edited notes sync thereafter). If
+> you don't want a bulk import, point **Target engram** at a dedicated engram first,
+> or enable sync on a small vault. The target engram must already exist — if it
+> doesn't, the Graphnosis app shows a one-click banner to create it on first write.
 
 ---
 

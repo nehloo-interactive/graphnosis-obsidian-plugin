@@ -116,8 +116,8 @@ export class GraphnosisPlugin extends Plugin {
       return;
     }
     try {
-      await this.client.remember(content, label);
-      new Notice('Saved to Graphnosis memory.');
+      await this.client.remember(content, label, this.settings.targetEngram);
+      new Notice(`Saved to Graphnosis memory (${this.settings.targetEngram}).`);
     } catch (e) {
       new Notice(`Graphnosis: save failed — ${(e as Error).message}`);
     }

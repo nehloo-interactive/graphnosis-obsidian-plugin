@@ -52,7 +52,7 @@ export class VaultSync {
           items.push({
             text: `# ${file.basename}\n\n${content}`,
             label: file.basename,
-            target_engram: this.settings.vaultSyncEngram,
+            target_engram: this.settings.targetEngram,
           });
         } catch {
           // Skip unreadable files silently

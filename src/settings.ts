@@ -4,8 +4,9 @@ import type { GraphnosisPlugin } from './main';
 export interface PluginSettings {
   httpBridgeUrl: string;
   bearerToken: string;
+  /** Engram that both "Save current note" and vault sync write into. */
+  targetEngram: string;
   vaultSync: boolean;
-  vaultSyncEngram: string;
   maxRecallTokens: number;
   lastSyncAt: number;
 }
@@ -13,8 +14,8 @@ export interface PluginSettings {
 export const DEFAULT_SETTINGS: PluginSettings = {
   httpBridgeUrl: 'http://127.0.0.1:3457/mcp',
   bearerToken: '',
+  targetEngram: 'personal',
   vaultSync: false,
-  vaultSyncEngram: 'personal',
   maxRecallTokens: 2000,
   lastSyncAt: 0,
 };
@@ -69,6 +70,18 @@ export class GraphnosisSettingTab extends PluginSettingTab {
             : 'Graphnosis: bridge not reachable — is the Graphnosis app running?');
         }));
 
+    new Setting(containerEl)
+      .setName('Target engram')
+      .setDesc('Engram (graph) that "Save current note" and vault sync write into. '
+        + 'If it doesn\'t exist yet, the Graphnosis app shows a one-click banner to create it on first save.')
+      .addText(text => text
+        .setPlaceholder('personal')
+        .setValue(this.plugin.settings.targetEngram)
+        .onChange(async (value) => {
+          this.plugin.settings.targetEngram = value.trim() || DEFAULT_SETTINGS.targetEngram;
+          await this.plugin.saveData(this.plugin.settings);
+        }));
+
     new Setting(containerEl).setName('Vault sync').setHeading();
 
     new Setting(containerEl)
@@ -79,21 +92,7 @@ export class GraphnosisSettingTab extends PluginSettingTab {
         .onChange(async (value) => {
           this.plugin.settings.vaultSync = value;
           await this.plugin.saveAndApply();
-          this.display();
         }));
-
-    if (this.plugin.settings.vaultSync) {
-      new Setting(containerEl)
-        .setName('Target engram')
-        .setDesc('Which Graphnosis engram (graph) to sync notes into.')
-        .addText(text => text
-          .setPlaceholder('personal')
-          .setValue(this.plugin.settings.vaultSyncEngram)
-          .onChange(async (value) => {
-            this.plugin.settings.vaultSyncEngram = value.trim() || DEFAULT_SETTINGS.vaultSyncEngram;
-            await this.plugin.saveData(this.plugin.settings);
-          }));
-    }
 
     new Setting(containerEl).setName('Recall').setHeading();
 
