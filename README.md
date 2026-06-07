@@ -8,7 +8,7 @@
 
 <img src="public/graphnosis-logo-550x550.png" alt="Graphnosis logo" width="120" />
 
-Indexed, local, encrypted job memory for your Obsidian vault, powered by [Graphnosis](https://graphnosis.ai).
+Indexed, local, encrypted job memory for your Obsidian vault, powered by [Graphnosis](https://graphnosis.com).
 
 - **Recall** — semantic search across your entire cortex from the command palette; click any result to insert it at the cursor
 - **Remember** — save the current note to your encrypted cortex with a single command
@@ -24,7 +24,7 @@ Indexed, local, encrypted job memory for your Obsidian vault, powered by [Graphn
 
 ## Prerequisites
 
-1. **Graphnosis desktop app** — [download here](https://graphnosis.ai/download). The app must be running and your cortex unlocked.
+1. **Graphnosis desktop app** — [download here](https://graphnosis.com/download). The app must be running and your cortex unlocked.
 2. **Bearer token** — open Graphnosis → Settings → VS Code tab and copy the token shown there. (The same token works for Obsidian — it's a local-only bridge.)
 
 ---
