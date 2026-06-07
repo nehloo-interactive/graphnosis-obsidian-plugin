@@ -93,3 +93,7 @@ Apache-2.0 — see [LICENSE](LICENSE).
 ## Demo
 
 [![Graphnosis for Obsidian — demo](https://img.youtube.com/vi/PX_Ua_81kH4/maxresdefault.jpg)](https://www.youtube.com/watch?v=PX_Ua_81kH4)
+
+![Graphnosis vault sync demo 1](public/graphnosis-obsidian-vault-sync-demo-1.png)
+
+![Graphnosis vault sync demo 2](public/graphnosis-obsidian-vault-sync-demo-2.png)
