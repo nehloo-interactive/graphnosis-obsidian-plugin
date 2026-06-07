@@ -97,3 +97,8 @@ Apache-2.0 — see [LICENSE](LICENSE).
 ![Graphnosis vault sync demo 1](public/graphnosis-obsidian-vault-sync-demo-1.png)
 
 ![Graphnosis vault sync demo 2](public/graphnosis-obsidian-vault-sync-demo-2.png)
+
+![Graphnosis vault sync demo 3](public/graphnosis-obsidian-vault-sync-demo-3.png)
+
+![Graphnosis vault sync demo 4](public/graphnosis-obsidian-vault-sync-demo-4.png)
+
